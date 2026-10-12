@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080b1c">
+  {% if noindex %}<meta name="robots" content="noindex, nofollow">{% endif %}
+  <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='images/brandverse-logo.svg') }}">
+  <title>{% block title %}BrandVerse AI{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}?v=20261012.3">
+</head>
+<body class="{{ 'home-page' if request.endpoint == 'home' else 'interior-page' }}">
+  <div class="ambient-scene" aria-hidden="true">
+    <div class="film-grain"></div>
+    <div class="ambient-aurora aurora-one parallax-element" data-parallax="0.018" data-pointer-depth="0.34"></div>
+    <div class="ambient-aurora aurora-two parallax-element" data-parallax="-0.012" data-pointer-depth="0.52"></div>
+    <div class="ambient-glow ambient-glow-one parallax-element" data-parallax="0.025" data-pointer-depth="0.62"></div>
+    <div class="ambient-glow ambient-glow-two parallax-element" data-parallax="-0.02" data-pointer-depth="0.46"></div>
+    <div class="ambient-beam beam-one"></div>
+    <div class="ambient-beam beam-two"></div>
+    <div class="liquid-light liquid-one parallax-element" data-parallax="0.012" data-pointer-depth="0.28"></div>
+    <div class="liquid-light liquid-two parallax-element" data-parallax="-0.01" data-pointer-depth="0.24"></div>
+    <div class="glass-form crystal-one parallax-element" data-parallax="0.035" data-pointer-depth="0.84"></div>
+    <div class="glass-form crystal-two parallax-element" data-parallax="-0.025" data-pointer-depth="0.74"></div>
+    <div class="art-fragment fragment-one">
+      <svg viewBox="0 0 300 380" fill="none">
+        <defs>
+          <linearGradient id="fragment-sky" x1="40" y1="0" x2="252" y2="360" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#d8caff"/><stop offset=".48" stop-color="#777ce6"/><stop offset="1" stop-color="#73c9df"/>
+          </linearGradient>
+          <linearGradient id="fragment-glass" x1="30" y1="15" x2="270" y2="360" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#fff" stop-opacity=".56"/><stop offset="1" stop-color="#a9a1ff" stop-opacity=".06"/>
+          </linearGradient>
+        </defs>
+        <rect x="18" y="18" width="264" height="344" rx="130" fill="url(#fragment-sky)" fill-opacity=".2"/>
+        <circle cx="157" cy="146" r="76" fill="#f6e8dc" fill-opacity=".42"/>
+        <path d="M22 249c41-41 73-49 111-24 36 24 64 20 91-12 20-24 42-35 66-29v159H22v-94Z" fill="#292b68" fill-opacity=".8"/>
+        <path d="M21 277c52-26 81-29 113-6 33 24 78 25 148-7v93H21v-80Z" fill="url(#fragment-glass)"/>
+        <path d="M50 61c34-28 72-42 115-40" stroke="#fff" stroke-opacity=".6" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="art-fragment fragment-two">
+      <svg viewBox="0 0 360 280" fill="none">
+        <defs>
+          <linearGradient id="fragment-ribbon" x1="50" y1="35" x2="286" y2="240" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#d9ceff" stop-opacity=".9"/><stop offset=".5" stop-color="#7989f1" stop-opacity=".65"/><stop offset="1" stop-color="#82d7e8" stop-opacity=".18"/>
+          </linearGradient>
+        </defs>
+        <path d="M33 199c48-112 92-154 145-137 42 13 50 69 87 60 21-5 40-32 64-79" stroke="url(#fragment-ribbon)" stroke-width="27" stroke-linecap="round"/>
+        <path d="M49 227c55-66 94-81 127-56 39 29 70 24 119-31" stroke="#fff" stroke-opacity=".42" stroke-width="2"/>
+        <circle cx="151" cy="83" r="5" fill="#fff" fill-opacity=".78"/>
+      </svg>
+    </div>
+    <svg class="network-lines" viewBox="0 0 1600 900" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="network-gradient" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#43c9ff"/>
+          <stop offset=".52" stop-color="#9474ff"/>
+          <stop offset="1" stop-color="#ff68c7"/>
+        </linearGradient>
+      </defs>
+      <path class="network-path network-path-one" d="M-50 245 C170 155 220 390 420 325 S690 225 805 325"/>
+      <path class="network-path network-path-two" d="M1650 190 C1435 265 1430 430 1220 385 S1030 260 805 325"/>
+      <path class="network-path network-path-three" d="M-60 710 C195 630 260 505 450 555 S660 690 805 595"/>
+      <path class="network-path network-path-four" d="M1660 720 C1440 635 1385 515 1185 555 S990 680 805 595"/>
+      <path class="network-path network-path-five" d="M420 325 C530 405 640 460 805 460 C970 460 1080 405 1220 385"/>
+      <g class="network-nodes">
+        <circle cx="165" cy="245" r="5"/><circle cx="420" cy="325" r="6"/>
+        <circle cx="805" cy="325" r="7"/><circle cx="1220" cy="385" r="6"/>
+        <circle cx="1450" cy="250" r="5"/><circle cx="450" cy="555" r="5"/>
+        <circle cx="805" cy="595" r="7"/><circle cx="1185" cy="555" r="5"/>
+      </g>
+    </svg>
+
+    <div class="ambient-particle particle-one"></div>
+    <div class="ambient-particle particle-two"></div>
+    <div class="ambient-particle particle-three"></div>
+    <div class="ambient-particle particle-four"></div>
+    <div class="ambient-particle particle-five"></div>
+    <div class="ambient-particle particle-six"></div>
+    <div class="ambient-particle particle-seven"></div>
+    <div class="ambient-particle particle-eight"></div>
+    <div class="ambient-particle particle-nine"></div>
+
+    <div class="floating-tile camera-tile parallax-element" data-parallax="0.045">
+      <svg viewBox="0 0 32 32" fill="none"><path d="M6 10.5h4l2-3h8l2 3h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-12a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.7"/><circle cx="16" cy="17.5" r="5" stroke="currentColor" stroke-width="1.7"/><path d="M23.5 14h.01" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+      <span>CREATE</span>
+    </div>
+    <div class="floating-tile bag-tile parallax-element" data-parallax="-0.04">
+      <svg viewBox="0 0 32 32" fill="none"><path d="M6 11h20l-1.5 16h-17L6 11Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M11 12V9a5 5 0 0 1 10 0v3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+      <span>BRAND</span>
+    </div>
+    <div class="floating-tile spark-tile parallax-element" data-parallax="0.025">
+      <svg viewBox="0 0 32 32" fill="none"><path d="m16 3 2.8 9.2L28 15l-9.2 2.8L16 27l-2.8-9.2L4 15l9.2-2.8L16 3Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="m25 22 .9 3.1L29 26l-3.1.9L25 30l-.9-3.1L21 26l3.1-.9L25 22Z" fill="currentColor"/></svg>
+    </div>
+
+    <div class="creator-float parallax-element" data-parallax="-0.03">
+      <div class="creator-float-avatar">A</div>
+      <div class="creator-float-copy"><b>Creator match</b><span>Audience aligned</span></div>
+      <span class="creator-float-score">96%</span>
+    </div>
+    <div class="campaign-float parallax-element" data-parallax="0.035">
+      <div class="campaign-float-top"><span>LIVE CAMPAIGN</span><span class="campaign-float-spark">✦</span></div>
+      <b>Make an impact</b>
+      <div class="campaign-float-bottom"><span>Brand × Creator</span><i><span></span></i></div>
+    </div>
+  </div>
+  <header class="site-header">
+    <a class="brand" href="{{ url_for('home') }}"><img class="brand-logo" src="{{ url_for('static', filename='images/brandverse-logo.svg') }}" alt=""><span>BrandVerse <b>AI</b><small>Imagine It. Generate It. Showcase It.</small></span></a>
+    <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+    <nav class="main-nav">
+      <a href="{{ url_for('home') }}">Home</a>
+      <a href="{{ url_for('discover_projects') }}">Showcase</a>
+      <a href="{{ url_for('browse_creators') }}">Discover Creators</a>
+      <a href="{{ url_for('browse_campaigns') }}">Explore Campaigns</a>
+      <a href="{{ url_for('home') }}#how-it-works">How It Works</a>
+      <a href="{{ url_for('home') }}#about">About</a>
+      {% if user %}
+        {% if user.role == 'creator' %}<a href="{{ url_for('portfolio') }}">My Portfolio</a>{% endif %}
+        <a href="{{ url_for('saved_projects') }}">Saved Work</a>
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('profile') }}">My Profile</a>
+        <form method="post" action="{{ url_for('logout') }}">{{ csrf_input() }}<button class="link-button">Log out</button></form>
+      {% else %}
+        <a href="{{ url_for('login') }}">Log in</a>
+        <a class="button button-small" href="{{ url_for('register') }}">Get started</a>
+      {% endif %}
+    </nav>
+  </header>
+  <main class="page">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}<div class="flash-stack">{% for category, message in messages %}<div class="flash {{ category }}" role="status">{{ message }}</div>{% endfor %}</div>{% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="footer"><a href="{{ url_for('home') }}">BrandVerse AI</a><span>Imagine It. Generate It. Showcase It.</span><a href="mailto:hello@creatorbridge.example">Contact</a></footer>
+  <script src="{{ url_for('static', filename='js/app.js') }}?v=20261012.3" defer></script>
+</body>
+</html>

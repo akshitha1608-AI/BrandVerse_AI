@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}Explore campaigns — BrandVerse AI{% endblock %}
+{% block content %}
+<section class="dashboard-head"><div><span class="eyebrow">Creator opportunities</span><h1>Explore campaigns</h1><p>Search published briefs. Demo listings are labeled as sample data.</p></div></section>
+<form class="filter-bar" method="get"><label>Search<input name="q" value="{{ search }}" placeholder="Campaign title or description"></label><label>Category<input name="category" value="{{ category }}" placeholder="Fashion, food, tech…"></label><button class="button" type="submit">Apply filters</button><a class="button button-outline" href="{{ url_for('browse_campaigns') }}">Clear</a></form>
+<div class="three-grid">{% for campaign in campaigns %}<a class="campaign-card" href="{{ url_for('campaign_detail', campaign_id=campaign.id) }}"><span class="chip">{{ campaign.category }} · {{ campaign.status }}</span><h3>{{ campaign.title }}</h3><p>{{ campaign.description }}</p><div class="card-bottom"><span>{{ campaign.owner.brand_profile.company_name if campaign.owner.brand_profile else campaign.owner.name }}</span><span>{{ campaign.minimum_budget|currency }}–{{ campaign.maximum_budget|currency }}</span></div><div class="card-bottom"><span>{{ campaign.content_format }}</span><span>{{ campaign.target_audience }}</span></div></a>{% else %}<div class="empty">No campaigns match those filters.</div>{% endfor %}</div>
+{% endblock %}

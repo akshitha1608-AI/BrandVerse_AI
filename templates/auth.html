@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Create account' if mode == 'register' else 'Log in' }} — BrandVerse AI{% endblock %}
+{% block content %}
+<section class="auth-layout"><div class="auth-aside"><span class="eyebrow">BrandVerse AI</span><h1>Make your next collaboration count.</h1><p>Join the marketplace for creators, brands, and agencies.</p></div>
+<form class="form-card auth-form" method="post">
+  {{ csrf_input() }}
+  <span class="eyebrow">{{ 'Get started' if mode == 'register' else 'Welcome back' }}</span><h2>{{ 'Create your account' if mode == 'register' else 'Log in' }}</h2>
+  {% if mode == 'register' %}<label>Full name<input required name="name" autocomplete="name"></label>{% endif %}
+  <label>Email<input required type="email" name="email" autocomplete="email"></label>
+  <label>Password<input required type="password" name="password" minlength="8" autocomplete="{{ 'new-password' if mode == 'register' else 'current-password' }}">{% if mode == 'register' %}<small>At least 8 characters.</small>{% endif %}</label>
+  {% if mode == 'register' %}<label>Account type<select name="role" required><option value="creator">Content creator</option><option value="brand">Brand</option><option value="agency">Creative agency</option></select></label>{% endif %}
+  <button class="button button-full" type="submit">{{ 'Create account' if mode == 'register' else 'Log in' }}</button>
+  <p class="form-footnote">{% if mode == 'register' %}Already registered? <a href="{{ url_for('login') }}">Log in</a>{% else %}New to the marketplace? <a href="{{ url_for('register') }}">Create an account</a>{% endif %}</p>
+</form></section>
+{% endblock %}

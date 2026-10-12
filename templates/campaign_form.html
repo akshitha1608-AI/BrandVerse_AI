@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Create campaign — BrandVerse AI{% endblock %}
+{% block content %}
+<section class="form-layout"><div><span class="eyebrow">Brand workspace</span><h1>{{ 'Edit campaign' if campaign else 'Create a campaign' }}</h1><p>Publish a brief for creators to discover and apply to.</p><p class="sample-note">Only publish details you are authorized to share.</p></div>
+<form class="form-card stacked-form" method="post">
+  {{ csrf_input() }}
+  <label>Campaign title<input name="title" required maxlength="180" placeholder="Campus wellness sprint" value="{{ campaign.title if campaign else '' }}"></label>
+  <label>Description<textarea name="description" required rows="4" placeholder="What should creators know about this collaboration?">{{ campaign.description if campaign else '' }}</textarea></label>
+  <div class="form-grid"><label>Category<input name="category" required placeholder="Fashion" value="{{ campaign.category if campaign else '' }}"></label><label>Objective<input name="objective" placeholder="Awareness" value="{{ campaign.objective if campaign else '' }}"></label></div>
+  <div class="form-grid"><label>Target audience<input name="target_audience" required placeholder="College students" value="{{ campaign.target_audience if campaign else '' }}"></label><label>Content format<input name="content_format" required placeholder="Instagram Reels" value="{{ campaign.content_format if campaign else '' }}"></label></div>
+  <div class="form-grid"><label>Minimum budget (₹)<input name="minimum_budget" required type="number" min="0" step="500" value="{{ campaign.minimum_budget if campaign else '' }}"></label><label>Maximum budget (₹)<input name="maximum_budget" required type="number" min="0" step="500" value="{{ campaign.maximum_budget if campaign else '' }}"></label></div>
+  <label>Creators required<input name="creators_required" type="number" min="1" max="100" value="{{ campaign.creators_required if campaign else 1 }}"></label>
+  <label class="check-label"><input name="allow_negotiation" type="checkbox" {% if campaign and campaign.allow_negotiation %}checked{% endif %}> Allow budget negotiation</label>
+  <div class="actions"><button class="button button-outline" name="publish" value="">Save draft</button><button class="button" name="publish" value="yes">Publish campaign</button></div>
+</form></section>
+{% endblock %}

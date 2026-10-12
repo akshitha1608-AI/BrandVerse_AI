@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Edit' if project.id else 'New' }} Project — BrandVerse AI{% endblock %}
+{% block content %}
+<section class="studio-heading"><a class="back-link" href="{{ url_for('portfolio') }}">← Back to my studio</a><span class="eyebrow">Creator Showcase Studio</span><h1>{{ 'Refine your project' if project.id else 'Give your creative work a home.' }}</h1><p>Share finished work, campaign case studies, or the ideas you are still exploring.</p></section>
+<div class="studio-layout">
+  <form class="form-card project-form" method="post" enctype="multipart/form-data" data-max-files="{{ max_files }}" data-max-image-bytes="{{ max_image_bytes }}" data-max-video-bytes="{{ max_video_bytes }}" data-max-request-bytes="{{ max_request_bytes or '' }}">
+    {{ csrf_input() }}
+    <fieldset class="project-fieldset"><legend>01 · Choose a project type</legend><label>Project type<select name="project_type" required>{% for value, label in project_types.items() %}<option value="{{ value }}" {% if project.project_type == value %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></label><label>Creative progress<select name="progress">{% for value, label in [('idea-stage','Idea Stage'),('in-progress','In Progress'),('completed','Completed'),('open-for-collaboration','Open for Collaboration')] %}<option value="{{ value }}" {% if project.progress == value %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></label></fieldset>
+    <fieldset class="project-fieldset"><legend>02 · Add your media</legend>
+      <label class="upload-dropzone"><span class="upload-icon" aria-hidden="true">↑</span><b>Choose images or video files</b><span>JPG, JPEG, PNG, WebP, MP4, WebM · up to {{ max_files }} files · images {{ (max_image_bytes / 1048576)|round(1) }} MB each · video {{ (max_video_bytes / 1048576)|round(1) }} MB each</span><input type="file" name="media" accept=".jpg,.jpeg,.png,.webp,.mp4,.webm,image/jpeg,image/png,image/webp,video/mp4,video/webm" multiple data-project-upload></label>
+      <p class="form-help">Add optional per-file captions to describe the story, collaborators, or before-and-after stages. Files are stored on this application server; previews load only when needed.</p>
+      <div class="upload-preview-grid" data-upload-previews aria-live="polite"></div>
+      {% if project.media %}
+      <div class="existing-media"><h3>Project media</h3><p class="form-help">Select a cover image and remove anything you no longer want.</p>
+        <div class="existing-media-grid">{% for media in project.media %}<label class="existing-media-card">
+          {% if media.media_type == 'image' %}<img src="{{ url_for('project_media_file', media_id=media.id) }}" alt="" loading="lazy">{% else %}<span class="video-file-preview">VIDEO</span>{% endif %}
+          <span class="existing-media-name">{{ media.original_name }}</span><label class="media-caption-label">Caption<input name="media_caption_{{ media.id }}" maxlength="240" value="{{ media.caption }}" placeholder="Describe this image or video"></label><span class="existing-media-actions"><span><input type="radio" name="cover_media_id" value="{{ media.id }}" {% if media.is_cover %}checked{% endif %}> Cover</span><span><input type="checkbox" name="remove_media" value="{{ media.id }}"> Remove</span></span>
+        </label>{% endfor %}</div>
+      </div>{% endif %}
+    </fieldset>
+    <fieldset class="project-fieldset"><legend>03 · Tell the story</legend>
+      <label>Project title<input name="title" maxlength="180" required value="{{ project.title }}" placeholder="Midnight Luxury — Fashion Photoshoot"></label>
+      <label>Description<textarea name="description" rows="4" maxlength="12000" placeholder="Describe the idea, visual direction, and work you created.">{{ project.description }}</textarea></label>
+      <div class="form-grid"><label>Category<input name="category" maxlength="100" value="{{ project.category }}" placeholder="Fashion Photography"></label><label>Tags <small>Comma-separated</small><input name="tags" value="{{ project.tags|join(', ') if project.tags else '' }}" placeholder="editorial, studio light, portrait"></label></div>
+      <div class="form-grid"><label>Brand or client <small>Optional</small><input name="client_name" maxlength="160" value="{{ project.client_name }}" placeholder="Only name a client when permitted"></label><label>Project date <small>Optional</small><input name="project_date" type="date" value="{{ project.project_date.isoformat() if project.project_date else '' }}"></label></div>
+      <div class="form-grid"><label>Location <small>Optional</small><input name="location" maxlength="160" value="{{ project.location }}" placeholder="City or studio"></label><label>Tools and equipment <small>Optional</small><input name="tools" maxlength="1000" value="{{ project.tools }}" placeholder="Camera, lens, editing software"></label></div>
+      <label>Credits and collaborators <small>Optional</small><textarea name="credits" rows="2" maxlength="3000" placeholder="Photographer, stylist, director, contributors">{{ project.credits }}</textarea></label>
+    </fieldset>
+    <fieldset class="project-fieldset"><legend>04 · Case study and creative direction <small>Optional</small></legend>
+      <label>Creative process<textarea name="creative_process" rows="3" maxlength="6000" placeholder="Explain the approach, references, moodboard, storyboard, and production process.">{{ project.creative_process }}</textarea></label>
+      <div class="form-grid"><label>Campaign objective<textarea name="campaign_objective" rows="3" maxlength="4000" placeholder="What was the project intended to achieve?">{{ project.campaign_objective }}</textarea></label><label>Intended audience<input name="target_audience" maxlength="240" value="{{ project.target_audience }}" placeholder="Who is this work for?"></label></div>
+      <label>Results <small>Optional · only enter results you can substantiate</small><textarea name="campaign_results" rows="2" maxlength="4000" placeholder="Do not include estimated or invented results.">{{ project.campaign_results }}</textarea></label>
+      <label>External video link <small>Optional · YouTube, Vimeo, Instagram, or TikTok</small><input type="url" name="external_video_url" maxlength="500" value="{{ project.external_video_url }}" placeholder="https://…"></label>
+    </fieldset>
+    <fieldset class="project-fieldset"><legend>05 · Visibility and publishing</legend>
+      <div class="form-grid"><label>Visibility<select name="visibility">{% for value in ['public','private','unlisted'] %}<option value="{{ value }}" {% if project.visibility == value %}selected{% endif %}>{{ value|title }}{% if value == 'private' %} · only you{% elif value == 'unlisted' %} · link access{% endif %}</option>{% endfor %}</select></label><div class="visibility-help"><b>Public</b> appears in discovery. <b>Private</b> is only visible to you. <b>Unlisted</b> is not indexed but anyone with its link can view it.</div></div>
+    </fieldset>
+    {% if not ai_ready %}<aside class="setup-notice compact"><b>Portfolio assistant unavailable</b><span>An AI service is not configured. Project copy remains yours to review and publish.</span></aside>{% endif %}
+    <div class="project-form-actions"><button class="button button-outline" type="submit" name="action" value="draft">Save as draft</button><button class="button" type="submit" name="action" value="publish">Publish project</button></div>
+  </form>
+  <aside class="studio-side">
+    <div class="studio-preview-card"><span class="eyebrow">A thoughtful showcase</span><h2>Work deserves a story.</h2><p>Your images, video, process, collaborators, and case-study details come together on a dedicated project page.</p><div class="studio-preview-stack"><span>01 <b>Visual direction</b></span><span>02 <b>Creative process</b></span><span>03 <b>Published portfolio</b></span></div></div>
+    <div class="studio-storage-note"><b>Local media storage</b><p>Uploaded files stay on this app server. For production use, configure durable media storage and backups before accepting large or irreplaceable media.</p></div>
+  </aside>
+</div>
+{% endblock %}

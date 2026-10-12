@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}Saved Creative Work — BrandVerse AI{% endblock %}
+{% block content %}
+<section class="studio-heading"><span class="eyebrow">Your inspiration board</span><h1>Saved creative work.</h1><p>Return to the public projects you want to revisit, reference, or discuss with your team.</p><a class="button button-outline" href="{{ url_for('discover_projects') }}">Discover more work</a></section>
+<section class="section"><div class="three-grid project-grid">{% for project in projects %}{% include "_project_card.html" %}{% else %}<div class="empty">You have not saved any public projects yet. Find something inspiring in the <a href="{{ url_for('discover_projects') }}">creative showcase</a>.</div>{% endfor %}</div></section>
+{% endblock %}

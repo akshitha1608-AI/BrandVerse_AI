@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}AI creator matches — BrandVerse AI{% endblock %}
+{% block content %}
+<section class="dashboard-head"><div><span class="eyebrow">Explainable recommendations</span><h1>Creator matches</h1><p>For <b>{{ campaign.title }}</b>. This ranked list is calculated from creator profiles and campaign requirements.</p></div><a class="button button-outline" href="{{ url_for('campaign_detail', campaign_id=campaign.id) }}">Back to campaign</a></section>
+<div class="match-weight-note">Category 30% · Budget 20% · Audience 20% · Format 15% · Objective and skills 10% · Availability 5%</div>
+<div class="match-list">{% for item in candidates %}<article class="match-card"><div class="match-card-top"><div class="creator-head"><div class="avatar">{{ item.name[:1] }}</div><div><h3>{{ item.name }}</h3><small>{{ item.category }} · {{ item.audience }}</small></div></div><span class="match-score">{{ item.match.score }}%</span></div><p>{{ item.match.explanation }}</p><div class="score-breakdown">{% for key, score in item.match.components.items() %}<span>{{ key|title }} <b>{{ score }}</b></span>{% endfor %}</div><p class="sample-note">Gaps: {{ item.match.gaps|join(', ') if item.match.gaps else 'No major gaps identified' }}</p><a class="text-link" href="{{ url_for('creator_detail', creator_id=item.id) }}">View creator profile →</a></article>{% else %}<div class="empty">No available creators meet the strict budget range. Check campaign limits or explicitly allow negotiation.</div>{% endfor %}</div>
+{% endblock %}
