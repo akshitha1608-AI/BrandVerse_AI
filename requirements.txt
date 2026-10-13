@@ -6,3 +6,4 @@ PyPDF2>=3.0,<4
 PyMySQL>=1.1,<2
 python-dotenv>=1.0,<2
 Flask-Limiter>=3.8,<5
+gunicorn
